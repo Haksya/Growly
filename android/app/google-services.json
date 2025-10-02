@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "620219634407",
+    "project_id": "growly-be722",
+    "storage_bucket": "growly-be722.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:620219634407:android:15f012d54b18e83a338842",
+        "android_client_info": {
+          "package_name": "com.example.growly"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDOLEkDI3reu2CBiMdIgMIJ6B1b6Eht3Dg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
