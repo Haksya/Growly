@@ -65,4 +65,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'growly-be722.firebasestorage.app',
     iosBundleId: 'com.example.growly',
   );
+
 }

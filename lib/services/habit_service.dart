@@ -8,20 +8,23 @@ class HabitService {
 
   String get _uid => FirebaseAuth.instance.currentUser!.uid;
 
+  /// 🟩 Tambah habit baru
   Future<void> addHabit(String title) async {
     await _habitsCollection.add({
       'title': title,
       'isDone': false,
-      'ownerId': _uid, // <- penting: tandai pemilik dokumen
+      'completedDates': [],
+      'ownerId': _uid,
       'createdAt': FieldValue.serverTimestamp(),
     });
   }
 
+  /// 🟥 Hapus habit berdasarkan ID
   Future<void> deleteHabit(String id) async {
     await _habitsCollection.doc(id).delete();
   }
 
-  // hanya ambil dokumen milik user ini
+  /// 📡 Ambil daftar habit milik user saat ini
   Stream<List<Habit>> getHabits() {
     return _habitsCollection
         .where('ownerId', isEqualTo: _uid)
@@ -37,7 +40,34 @@ class HabitService {
         });
   }
 
-  Future<void> toogleHabitStatus(String id, bool isDone) async {
-    await _habitsCollection.doc(id).update({'isDone': !isDone});
+  /// 🔄 Toggle status habit (check/uncheck)
+  Future<void> toggleHabitStatus(String id, bool isDone) async {
+    final docRef = _habitsCollection.doc(id);
+    final docSnapshot = await docRef.get();
+
+    if (docSnapshot.exists) {
+      final data = docSnapshot.data() as Map<String, dynamic>? ?? {};
+
+      // Ambil daftar tanggal selesai
+      List<String> completedDates = List<String>.from(
+        data['completedDates'] ?? [],
+      );
+
+      // Format tanggal hari ini (YYYY-MM-DD)
+      String today = DateTime.now().toIso8601String().substring(0, 10);
+
+      if (isDone) {
+        // Tambahkan tanggal hari ini jika belum ada
+        if (!completedDates.contains(today)) {
+          completedDates.add(today);
+        }
+      } else {
+        // Hapus tanggal hari ini jika uncheck
+        completedDates.remove(today);
+      }
+
+      // Update Firestore
+      await docRef.update({'completedDates': completedDates, 'isDone': isDone});
+    }
   }
 }
