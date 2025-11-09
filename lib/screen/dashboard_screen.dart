@@ -71,9 +71,7 @@ class DashboardScreen extends StatelessWidget {
                   value: progress,
                   minHeight: 10,
                   backgroundColor: Colors.grey[300],
-                  valueColor: const AlwaysStoppedAnimation<Color>(
-                    Colors.blueAccent,
-                  ),
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
               ),
 
