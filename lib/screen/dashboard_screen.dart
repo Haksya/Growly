@@ -13,7 +13,8 @@ class DashboardScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Dashboard"),
+        title: const Text("Growly"),
+        centerTitle: true,
         actions: [
           IconButton(
             icon: const Icon(Icons.add),
@@ -94,10 +95,22 @@ class DashboardScreen extends StatelessWidget {
                         habitService.toggleHabitStatus(habit.id, value!);
                       },
                       secondary: IconButton(
-                        icon: const Icon(Icons.delete),
                         onPressed: () {
                           habitService.deleteHabit(habit.id);
                         },
+                        icon: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade300, // warna kotak
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Icon(
+                            Icons.remove, // tanda minus
+                            color: Colors.black54,
+                            size: 20,
+                          ),
+                        ),
                       ),
                     );
                   },
