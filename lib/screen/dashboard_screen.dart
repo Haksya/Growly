@@ -86,6 +86,11 @@ class DashboardScreen extends StatelessWidget {
 
                     return CheckboxListTile(
                       title: Text(habit.title),
+                      subtitle: Text(
+                        habit.calculateStreak() >= 5
+                            ? "🔥🔥🔥 Streak: ${habit.calculateStreak()} hari "
+                            : "🔥 Streak: ${habit.calculateStreak()} hari ",
+                      ),
                       value: habit.isDone,
                       onChanged: (value) {
                         habitService.toggleHabitStatus(habit.id, value!);

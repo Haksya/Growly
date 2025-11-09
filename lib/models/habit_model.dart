@@ -47,4 +47,24 @@ class Habit {
       ownerId: ownerId ?? this.ownerId,
     );
   }
+
+  int calculateStreak() {
+    if (completedDates.isEmpty) return 0;
+
+    List<DateTime> dates =
+        completedDates.map((dateStr) => DateTime.parse(dateStr)).toList()
+          ..sort((a, b) => b.compareTo(a)); // Sort descending
+
+    int streak = 0;
+    DateTime today = DateTime.now();
+    for (var date in dates) {
+      if (date.difference(today).inDays == 0 ||
+          date.difference(today).inDays == -streak) {
+        streak++;
+      } else {
+        break;
+      }
+    }
+    return streak;
+  }
 }

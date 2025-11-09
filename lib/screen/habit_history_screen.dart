@@ -10,7 +10,7 @@ class HabitHistoryScreen extends StatelessWidget {
     final HabitService habitService = HabitService();
 
     return Scaffold(
-      appBar: AppBar(title: Text('habit History')),
+      appBar: AppBar(title: Text('habit History'), centerTitle: true),
       body: StreamBuilder<List<Habit>>(
         stream: habitService.getHabits(),
         builder: (context, snapshot) {
